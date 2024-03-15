@@ -1,8 +1,10 @@
 import { useRecoilValue } from 'recoil'
 import { userDetailsSelectorFamily } from '../store/atoms/user'
+import { useNavigate } from 'react-router-dom';
 
 export default function Users() {
     const users = useRecoilValue(userDetailsSelectorFamily);
+    const navigate = useNavigate();
     return (
         <>
             {users.map((user) => (
@@ -17,7 +19,9 @@ export default function Users() {
                             </div>
                         </div>
                         <div>
-                            <button className=' bg-indigo-500 py-2 px-3 rounded-md'>Send Money</button>
+                            <button onClick={(e) => {
+                                navigate(`/sendmoney?id=${user._id}&name=${user.firstName}`)
+                            }} className=' bg-indigo-500 py-2 px-3 rounded-md'>Send Money</button>
                         </div>
                     </div>
                 </div>
