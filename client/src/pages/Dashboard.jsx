@@ -18,7 +18,9 @@ export default function Dashboard() {
     return (
         <RecoilRoot>
             <div className=' w-full h-screen bg-slate-800'>
-                <Navbar />
+                <Suspense fallback={"..."}>
+                    <Navbar />
+                </Suspense>
                 <main className='p-0 md:px-4'>
                     <Suspense fallback={"..."}>
                         <Balance />

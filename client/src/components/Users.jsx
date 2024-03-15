@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil'
 import { userDetailsSelectorFamily } from '../store/atoms/user'
 
-export default function Users({ image }) {
+export default function Users() {
     const users = useRecoilValue(userDetailsSelectorFamily);
     return (
         <>
@@ -10,7 +10,7 @@ export default function Users({ image }) {
                     <div className=' w-full lg:max-w-7xl mx-auto px-4 md:px-0 text-white flex flex-row justify-between gap-3'>
                         <div className=' flex flex-row gap-3 '>
                             <div className=' h-10 w-10 bg-slate-600 flex justify-center items-center rounded-full ' >
-                                <span>{image}</span>
+                                <span className=' font-bold text-lg'>{user.firstName.charAt(0).toUpperCase()}</span>
                             </div>
                             <div className=' flex items-center'>
                                 <span className=' font-bold'>{user.firstName} {user.lastName}</span>

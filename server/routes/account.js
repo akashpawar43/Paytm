@@ -2,6 +2,7 @@ const express = require("express");
 const { authMiddleware } = require("../middleware/authMiddleware");
 const { Account } = require("../models/Account");
 const { default: mongoose } = require("mongoose");
+const { User } = require("../models/User");
 const router = express.Router();
 
 // get balance route for getting user balance http://localhost:4000/api/v1/account/balance
@@ -9,8 +10,11 @@ router.get("/balance", authMiddleware, async (req, res) => {
     const account = await Account.findOne({
         userId: req.userId
     })
+    const user = await User.findOne({ _id: req.userId }).select(['-password'])
+    // console.log(user);
     res.json({
-        balance: account.balance
+        balance: account.balance,
+        user: user
     })
 })
 
@@ -43,7 +47,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
     // perform transfer  ($inc accept position and negative values )
     await Account.updateOne({ userId: req.userId }, { $inc: { balance: -amount } }).session(session);
     await Account.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
-    
+
     // commit transaction
     await session.commitTransaction();
     res.json({
