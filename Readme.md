@@ -58,4 +58,3 @@ Technologies used in the project:
 *   ExpressJS
 *   Tailwind CSS
 *   JavaScript
-*   React-Icons
