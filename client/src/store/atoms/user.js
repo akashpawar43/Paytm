@@ -21,7 +21,21 @@ export const signUpSelector = selector({
     }
 })
 
-
+export const balanceAtom = atom({
+    key: "balanceAtom",
+    default: selector({
+        key: "balanceSelector",
+        get: async ({get}) => {
+            const token = localStorage.getItem("token")
+            const response = await axios.get('http://localhost:4000/api/v1/account/balance', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            return response.data;
+        }
+    })
+})
 
 
 
