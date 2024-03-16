@@ -10,7 +10,9 @@ Here're some of the project's best features:
 
 *   SignUp
 *   SignIn
+*   Dashboard
 *   Get Users
+*   Filter Users
 *   Get Balance 
 *   Send Money
 
