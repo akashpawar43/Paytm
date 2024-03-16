@@ -13,7 +13,7 @@ export default function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/signup' element={<RecoilRoot><Signup /></RecoilRoot>} />
         <Route path='/signin' element={<RecoilRoot><Signin /></RecoilRoot>} />
-        <Route path='/sendmoney' element={<Send />} />
+        <Route path='/sendmoney' element={<RecoilRoot><Send /></RecoilRoot>} />
       </Routes>
     </BrowserRouter>
   )
