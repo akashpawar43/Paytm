@@ -6,7 +6,7 @@ export default function Navbar() {
     const { user } = useRecoilValue(balanceAtom);
     const firstLetter = user.firstName.charAt(0).toUpperCase();
     return (
-        <nav className=' w-full bg-slate-900'>
+        <nav className=' w-full bg-zinc-950 border-b-2 border-zinc-800'>
             <div className=' container mx-auto bg-transparent p-3 flex flex-row justify-between items-center text-white'>
                 <div>
                     <span className=' text-xl font-bold'>Payments App</span>
