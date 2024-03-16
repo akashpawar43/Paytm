@@ -1,11 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import InputBox from '../components/InputBox';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { firstNameAtom, lastNameAtom, passwordAtom, signUpSelector, usernameAtom } from '../store/atoms/user';
 
 export default function () {
-    // const [data, setData] = useState({ firstName: "", lastName: "", username: "", password: "" });
+    const setFirstName = useSetRecoilState(firstNameAtom);
+    const setLastName = useSetRecoilState(lastNameAtom);
+    const setUserName = useSetRecoilState(usernameAtom);
+    const setPassword = useSetRecoilState(passwordAtom);
+    const data = useRecoilValue(signUpSelector);
     const navigate = useNavigate()
+    // const [data, setData] = useState({ firstName: "", lastName: "", username: "", password: "" });
     // const handleData = (e) => {
     //     setData({ ...data, [e.target.name]: [e.target.value] })
     // }
@@ -16,10 +22,6 @@ export default function () {
     // }
     // console.log(data);
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [username, setUserName] = useState("");
-    const [password, setPassword] = useState("");
     return (
         <div className=' min-h-screen w-full bg-slate-900 flex items-center'>
             <section className=' mx-auto text-white flex justify-center items-center py-10 px-6 sm:px-8 md:px-10 bg-slate-800 rounded-lg'>
@@ -32,12 +34,7 @@ export default function () {
                         <InputBox onChange={(e) => setUserName(e.target.value)} placeholder='johndoe@gmail.com' label="Email" />
                         <InputBox onChange={(e) => setPassword(e.target.value)} placeholder='' label="Password" />
                         <button onClick={async () => {
-                            const response = await axios.post("http://localhost:4000/api/v1/user/signup", {
-                                username,
-                                firstName,
-                                lastName,
-                                password
-                            })
+                            const response = await axios.post("http://localhost:4000/api/v1/user/signup", data)
                             localStorage.setItem("token", response.data.token)
                             navigate("/dashboard")
                             console.log({ response });

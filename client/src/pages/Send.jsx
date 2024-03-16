@@ -11,7 +11,7 @@ export default function Send() {
     const name = searchParams.get("name");
     return (
         <div className=' min-h-screen w-full bg-slate-900 flex items-center'>
-            <section className=' mx-auto text-white flex justify-center items-center py-8 px-6 sm:px-8 md:px-10 bg-slate-800 rounded-lg w-[30%]'>
+            <section className=' mx-auto text-white flex justify-center items-center py-8 px-6 sm:px-8 md:px-10 bg-slate-800 rounded-lg w-[90%] sm:w-[95%] md:w-[50%] xl:w-96'>
                 <div className=' flex items-center flex-col w-full'>
                     <span className=' font-semibold text-3xl pb-16'>Send Money</span>
                     <div className=' flex flex-row gap-3 w-full'>

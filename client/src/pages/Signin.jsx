@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import InputBox from '../components/InputBox';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { passwordAtom, signInSelector, usernameAtom } from '../store/atoms/user';
 
 export default function Signin() {
-    const [username, setUserName] = useState("");
-    const [password, setPassword] = useState("");
+    const setUserName = useSetRecoilState(usernameAtom);
+    const setPassword = useSetRecoilState(passwordAtom);
+    const data = useRecoilValue(signInSelector);
     const navigate = useNavigate()
     return (
         <div className=' min-h-screen w-full bg-slate-900 flex items-center'>
@@ -17,10 +19,7 @@ export default function Signin() {
                         <InputBox onChange={(e) => setUserName(e.target.value)} placeholder='johndoe@gmail.com' label="Email" />
                         <InputBox onChange={(e) => setPassword(e.target.value)} placeholder='' label="Password" />
                         <button onClick={async () => {
-                            const response = await axios.post("http://localhost:4000/api/v1/user/signin", {
-                                username,
-                                password
-                            })
+                            const response = await axios.post("http://localhost:4000/api/v1/user/signin", data)
                             localStorage.setItem("token", response.data.token)
                             navigate('/dashboard')
                         }}

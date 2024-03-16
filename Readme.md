@@ -52,9 +52,10 @@ npm run dev
 
 Technologies used in the project:
 
-*   ReactJs
-*   NodeJs
+*   React.Js
+*   Node.Js
+*   Recoil.Js
 *   Mongodb
-*   ExpressJS
+*   Express.JS
 *   Tailwind CSS
 *   JavaScript
