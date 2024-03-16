@@ -1,8 +1,9 @@
 const express = require("express");
+const dotenv = require("dotenv").config();
 const handleMongo = require("./db/db");
 const cors = require("cors");
 const rootRouter = require("./routes/index");
-const PORT = 4000;
+const PORT = process.env.PORT;
 
 // databse is connected
 handleMongo();
