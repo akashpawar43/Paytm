@@ -55,6 +55,11 @@ export const passwordAtom = atom({
     default: ""
 })
 
+export const amountAtom = atom({
+    key: "amountAtom",
+    default: ""
+})
+
 export const signInSelector = selector({
     key: "signInSelector",
     get: ({ get }) => {

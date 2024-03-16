@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
 import InputBox from '../components/InputBox';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { amountAtom } from '../store/atoms/user';
 
 export default function Send() {
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useRecoilState(amountAtom);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
