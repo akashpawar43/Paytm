@@ -11,7 +11,7 @@ export default function Users() {
                 <div key={user._id} className=' w-full py-5'>
                     <div className=' w-full lg:max-w-7xl mx-auto px-4 md:px-0 text-white flex flex-row justify-between gap-3'>
                         <div className=' flex flex-row gap-3 '>
-                            <div className=' h-10 w-10 bg-slate-600 flex justify-center items-center rounded-full ' >
+                            <div className=' h-10 w-10 bg-zinc-600 flex justify-center items-center rounded-full ' >
                                 <span className=' font-bold text-lg'>{user.firstName.charAt(0).toUpperCase()}</span>
                             </div>
                             <div className=' flex items-center'>

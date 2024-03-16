@@ -15,7 +15,7 @@ export default function Navbar() {
                     <div>
                         <span>Hello, {user.firstName}</span>
                     </div>
-                    <div className=' h-9 w-9 bg-slate-600 flex justify-center items-center rounded-full ' >
+                    <div className=' h-9 w-9 bg-zinc-600 flex justify-center items-center rounded-full ' >
                         <span className=' font-bold text-lg'>{firstLetter}</span>
                     </div>
                 </div>
