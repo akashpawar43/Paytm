@@ -30,7 +30,7 @@ export default function Send() {
                     <span className=' font-semibold text-3xl pb-16'>Send Money</span>
                     <div className=' flex flex-row gap-3 w-full'>
                         <div className=' h-12 w-12 bg-slate-600 flex justify-center items-center rounded-full ' >
-                            <span className=' text-2xl'>{name.charAt(0).toUpperCase()}</span>
+                            <span className=' text-2xl'>{name[0].toUpperCase()}</span>
                         </div>
                         <div className=' flex items-center'>
                             <span className=' font-semibold text-2xl'>{name}</span>

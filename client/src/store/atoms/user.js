@@ -7,12 +7,12 @@ export const balanceAtom = atom({
     default: selector({
         key: "balanceSelector",
         get: async ({ get }) => {
-            const token = localStorage.getItem("token")
+            const token = localStorage.getItem("token");
             const response = await axios.get('http://localhost:4000/api/v1/account/balance', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
-            })
+            });
             return response.data;
         }
     })
@@ -65,7 +65,7 @@ export const signInSelector = selector({
     get: ({ get }) => {
         const username = get(usernameAtom);
         const password = get(passwordAtom);
-        return { username, password }
+        return { username, password };
     }
 })
 
@@ -76,7 +76,7 @@ export const signUpSelector = selector({
         const password = get(passwordAtom);
         const firstName = get(firstNameAtom);
         const lastName = get(lastNameAtom);
-        return { username, password, firstName, lastName }
+        return { username, password, firstName, lastName };
     }
 })
 

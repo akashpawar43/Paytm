@@ -10,6 +10,7 @@ Here're some of the project's best features:
 
 *   SignUp
 *   SignIn
+*   Log Out
 *   Dashboard
 *   Get Users
 *   Filter Users

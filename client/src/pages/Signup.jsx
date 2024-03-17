@@ -28,7 +28,7 @@ export default function () {
                         <InputBox onChange={(e) => setLastName(e.target.value)} placeholder='Doe' label="last Name" />
                         <InputBox onChange={(e) => setUserName(e.target.value)} placeholder='johndoe@gmail.com' label="Email" />
                         <InputBox onChange={(e) => setPassword(e.target.value)} placeholder='' label="Password" />
-                        <button onClick={handleSignUp} className=' w-full rounded-md bg-indigo-500 mt-2.5 px-2 py-1.5' >Sign Up</button>
+                        <button onClick={handleSignUp} className=' w-full rounded-md bg-indigo-600 hover:bg-indigo-500 mt-2.5 px-2 py-1.5' >Sign Up</button>
                     </div>
                     <p>
                         Alredy have an account? <Link to="/signin" className=' underline' >Login</Link>

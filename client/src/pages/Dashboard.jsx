@@ -27,7 +27,7 @@ export default function Dashboard() {
                     </Suspense>
                     <Filter />
                     <Suspense fallback={<UserLoading />}>
-                        <Users image="U1" />
+                        <Users />
                     </Suspense>
                 </main>
             </div>
