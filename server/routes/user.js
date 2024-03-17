@@ -42,7 +42,7 @@ router.post("/signup", async (req, res) => {
         });
         const userId = user._id;
         const token = jwt.sign({ userId }, JWT_SECRTE)
-        
+
         // creating account for user with random balance from 1 to 10000 
         await Account.create({
             userId,
@@ -135,7 +135,7 @@ router.put("/", authMiddleware, async (req, res) => {
 })
 
 // GET bulk route for getting all user using filter query http://localhost:4000/api/v1/user/bulk
-router.get("/bulk", async (req, res) => {
+router.get("/bulk", authMiddleware, async (req, res) => {
     const filter = req.query.filter || "";
 
     const users = await User.find({
@@ -149,8 +149,9 @@ router.get("/bulk", async (req, res) => {
             }
         }]
     })
+    const data = users.filter((i) => i._id != req.userId);
     res.status(200).json({
-        users: users.map(user => ({
+        users: data.map(user => ({
             _id: user._id,
             username: user.username,
             firstName: user.firstName,
