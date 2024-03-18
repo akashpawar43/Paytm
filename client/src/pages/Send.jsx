@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
 import { alertAtom, amountAtom } from '../store/atoms/user';
 import Alert from '../components/Alert';
-import { useEffect } from 'react';
 
 export default function Send() {
     const [amount, setAmount] = useRecoilState(amountAtom);
@@ -12,8 +11,7 @@ export default function Send() {
     const id = searchParams.get("id");
     const name = searchParams.get("name");
     const navigate = useNavigate();
-
-    const [alert,setAlert] = useRecoilState(alertAtom);
+    const setAlert = useSetRecoilState(alertAtom);
 
     const handleTransfer = useRecoilCallback(({ set }) => async () => {
         const response = await axios.post("http://localhost:4000/api/v1/account/transfer", {
@@ -25,15 +23,11 @@ export default function Send() {
             }
         })
         console.log(response.data.message);
-        // navigate('/dashboard');
         setAlert({ display: true, color: "green", message: response.data.message })
-        
-    });
-    useEffect(()=> {
-        setTimeout(()=> {
-            setAlert({ display: false, color: "green", message: '' });
+        setTimeout(() => {
+            setAlert({ display: false, message: '', color: "" });
         }, 10000);
-    }, [alert])
+    });
 
     return (
         <>
