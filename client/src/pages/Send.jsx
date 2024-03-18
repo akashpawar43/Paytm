@@ -1,8 +1,10 @@
 import InputBox from '../components/InputBox';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import { useRecoilCallback, useRecoilState } from 'recoil';
-import { amountAtom } from '../store/atoms/user';
+import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
+import { alertAtom, amountAtom } from '../store/atoms/user';
+import Alert from '../components/Alert';
+import { useEffect } from 'react';
 
 export default function Send() {
     const [amount, setAmount] = useRecoilState(amountAtom);
@@ -10,6 +12,8 @@ export default function Send() {
     const id = searchParams.get("id");
     const name = searchParams.get("name");
     const navigate = useNavigate();
+
+    const [alert,setAlert] = useRecoilState(alertAtom);
 
     const handleTransfer = useRecoilCallback(({ set }) => async () => {
         const response = await axios.post("http://localhost:4000/api/v1/account/transfer", {
@@ -20,29 +24,40 @@ export default function Send() {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
         })
-        console.log({ response });
-        navigate('/dashboard')
+        console.log(response.data.message);
+        // navigate('/dashboard');
+        setAlert({ display: true, color: "green", message: response.data.message })
+        
     });
+    useEffect(()=> {
+        setTimeout(()=> {
+            setAlert({ display: false, color: "green", message: '' });
+        }, 10000);
+    }, [alert])
+
     return (
-        <div className=' min-h-screen w-full bg-zinc-900 flex items-center'>
-            <section className=' mx-auto text-white flex justify-center items-center py-8 px-6 sm:px-8 md:px-10 bg-zinc-800 rounded-lg w-[90%] sm:w-[95%] md:w-[50%] xl:w-96'>
-                <div className=' flex items-center flex-col w-full'>
-                    <span className=' font-semibold text-3xl pb-16'>Send Money</span>
-                    <div className=' flex flex-row gap-3 w-full'>
-                        <div className=' h-12 w-12 bg-slate-600 flex justify-center items-center rounded-full ' >
-                            <span className=' text-2xl'>{name[0].toUpperCase()}</span>
+        <>
+            <Alert />
+            <div className=' min-h-screen w-full bg-zinc-900 flex items-center'>
+                <section className=' mx-auto text-white flex justify-center items-center py-8 px-6 sm:px-8 md:px-10 bg-zinc-800 rounded-lg w-[90%] sm:w-[95%] md:w-[50%] xl:w-96'>
+                    <div className=' flex items-center flex-col w-full'>
+                        <span className=' font-semibold text-3xl pb-16'>Send Money</span>
+                        <div className=' flex flex-row gap-3 w-full'>
+                            <div className=' h-12 w-12 bg-slate-600 flex justify-center items-center rounded-full ' >
+                                <span className=' text-2xl'>{name[0].toUpperCase()}</span>
+                            </div>
+                            <div className=' flex items-center'>
+                                <span className=' font-semibold text-2xl'>{name}</span>
+                            </div>
                         </div>
-                        <div className=' flex items-center'>
-                            <span className=' font-semibold text-2xl'>{name}</span>
+                        <div className=' flex flex-col w-full gap-4 pb-5'>
+                            <InputBox onChange={(e) => setAmount(e.target.value)} placeholder='Enter amount' label="Amount (in Rs)" />
+                            <button onClick={handleTransfer}
+                                className=' w-full rounded-md bg-indigo-500 px-2 py-1.5' >Sign In</button>
                         </div>
                     </div>
-                    <div className=' flex flex-col w-full gap-4 pb-5'>
-                        <InputBox onChange={(e) => setAmount(e.target.value)} placeholder='Enter amount' label="Amount (in Rs)" />
-                        <button onClick={handleTransfer}
-                            className=' w-full rounded-md bg-indigo-500 px-2 py-1.5' >Sign In</button>
-                    </div>
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
+        </>
     )
 }

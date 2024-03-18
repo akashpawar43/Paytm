@@ -6,6 +6,7 @@ import Users from '../components/Users'
 import { RecoilRoot } from 'recoil'
 import UserLoading from '../Loader/UserLoading'
 import { useNavigate } from 'react-router-dom'
+import Alert from '../components/Alert'
 
 export default function Dashboard() {
     const token = localStorage.getItem("token");
@@ -14,13 +15,14 @@ export default function Dashboard() {
         if (!token) {
             navigate("/signin");
         }
-    }, [token])
+    }, [token]);
     return (
         <RecoilRoot>
             <div className=' w-full h-screen bg-zinc-900'>
                 <Suspense fallback={"..."}>
                     <Navbar />
                 </Suspense>
+                <Alert />
                 <main className='p-0 md:px-4'>
                     <Suspense fallback={"..."}>
                         <Balance />

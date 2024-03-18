@@ -20,16 +20,17 @@ export const balanceAtom = atom({
 
 
 // All User Details like firstName, lastName and Id
-export const usersDetailsAtomFamily = atom({
-    key: "usersDetailsAtomFamily",
+export const usersDetailsAtom = atom({
+    key: "usersDetailsAtom",
     default: ''
 })
 
-export const userDetailsSelectorFamily = selector({
-    key: "userDetailsSelectorFamily",
+export const userDetailsSelector = selector({
+    key: "userDetailsSelector",
     get: async ({ get }) => {
-        const user = get(usersDetailsAtomFamily);
+        const user = get(usersDetailsAtom);
         // await new Promise(r => setTimeout(r, 5000));
+        
         const res = await axios.get(`http://localhost:4000/api/v1/user/bulk?filter=${user}`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
@@ -37,32 +38,50 @@ export const userDetailsSelectorFamily = selector({
         });
         return res.data.users;
     }
-})
+});
+
+const debounc = (func, dalay) => {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func(...args);
+        }, dalay)
+    }
+};
+
+export const debounceSelector = selector({
+    key: "debounceSelector",
+    get: ({get}) => {
+        const userDetailsSelectorValue = get(userDetailsSelector);
+        return debounc(() => get(userDetailsSelector), 5000)(userDetailsSelectorValue);
+    }
+});
 
 export const firstNameAtom = atom({
     key: "firstNameAtom",
     default: ""
-})
+});
 
 export const lastNameAtom = atom({
     key: "lastNameAtom",
     default: ""
-})
+});
 
 export const usernameAtom = atom({
     key: "usernameAtom",
     default: ""
-})
+});
 
 export const passwordAtom = atom({
     key: "passwordAtom",
     default: ""
-})
+});
 
 export const amountAtom = atom({
     key: "amountAtom",
     default: ""
-})
+});
 
 export const signInSelector = selector({
     key: "signInSelector",
@@ -83,6 +102,19 @@ export const signUpSelector = selector({
         return { username, password, firstName, lastName };
     }
 })
+
+
+export const alertAtom = atom({
+    key: "alertAtom",
+    default: {
+        display: false,
+        message: "",
+        color: ""
+    }
+})
+
+
+
 
 // export const signUpAtom = atom({
 //     key: "signupAtom",

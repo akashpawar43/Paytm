@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import InputBox from '../components/InputBox';
-import { useRecoilCallback, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { firstNameAtom, lastNameAtom, passwordAtom, signUpSelector, usernameAtom } from '../store/atoms/user';
+import { useAuth } from '../hooks/Auth';
 
 export default function () {
     const setFirstName = useSetRecoilState(firstNameAtom);
@@ -10,13 +10,7 @@ export default function () {
     const setUserName = useSetRecoilState(usernameAtom);
     const setPassword = useSetRecoilState(passwordAtom);
     const data = useRecoilValue(signUpSelector);
-    const navigate = useNavigate();
-    const handleSignUp = useRecoilCallback(({ set }) => async () => {
-        const response = await axios.post("http://localhost:4000/api/v1/user/signup", data);
-        localStorage.setItem("token", response.data.token);
-        navigate("/dashboard");
-        console.log({ response });
-    });
+    const handleSignUp = useAuth("signup", { data });
     return (
         <div className=' min-h-screen w-full bg-zinc-900 flex items-center'>
             <section className=' mx-auto text-white flex justify-center items-center py-10 px-6 sm:px-8 md:px-10 bg-zinc-800 rounded-lg'>

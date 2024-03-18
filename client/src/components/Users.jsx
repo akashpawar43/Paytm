@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil'
-import { userDetailsSelectorFamily } from '../store/atoms/user'
+import { userDetailsSelector } from '../store/atoms/user'
 import { useNavigate } from 'react-router-dom';
 
 export default function Users() {
-    const users = useRecoilValue(userDetailsSelectorFamily);
+    const users = useRecoilValue(userDetailsSelector);
     const navigate = useNavigate();
     return (
         <>
