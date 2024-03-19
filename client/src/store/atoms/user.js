@@ -40,23 +40,24 @@ export const userDetailsSelector = selector({
     }
 });
 
-const debounc = (func, dalay) => {
-    let timeout;
-    return (...args) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            func(...args);
-        }, dalay)
-    }
-};
+// tried some debouncing logic but didn't work
+// const debounc = (func, dalay) => {
+//     let timeout;
+//     return (...args) => {
+//         clearTimeout(timeout);
+//         timeout = setTimeout(() => {
+//             func(...args);
+//         }, dalay)
+//     }
+// };
 
-export const debounceSelector = selector({
-    key: "debounceSelector",
-    get: ({get}) => {
-        const userDetailsSelectorValue = get(userDetailsSelector);
-        return debounc(() => get(userDetailsSelector), 5000)(userDetailsSelectorValue);
-    }
-});
+// export const debounceSelector = selector({
+//     key: "debounceSelector",
+//     get: ({get}) => {
+//         const userDetailsSelectorValue = get(userDetailsSelector);
+//         return debounc(() => get(userDetailsSelector), 5000)(userDetailsSelectorValue);
+//     }
+// });
 
 export const firstNameAtom = atom({
     key: "firstNameAtom",
@@ -113,24 +114,3 @@ export const alertAtom = atom({
     }
 })
 
-
-
-
-// export const signUpAtom = atom({
-//     key: "signupAtom",
-//     default: {
-//         firstName: "",
-//         lastName: "",
-//         username: "",
-//         password: ""
-//     }
-// })
-
-// export const signUpSelector = selector({
-//     key: "signUpSelector",
-//     get: async ({get}) => {
-//         const signUp = get(signUpAtom);
-//         const res = await axios.post('http://localhost:4000/api/v1/user/signup', {signUpAtom})
-//         return res.data;
-//     }
-// })

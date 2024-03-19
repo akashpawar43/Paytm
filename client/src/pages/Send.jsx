@@ -28,7 +28,6 @@ export default function Send() {
             setAlert({ display: false, message: '', color: "" });
         }, 10000);
     });
-
     return (
         <>
             <Alert />

@@ -4,6 +4,7 @@ import { alertAtom } from '../store/atoms/user'
 
 export default function Alert() {
     const alert = useRecoilValue(alertAtom);
+    console.log("alert component");
     console.log(alert);
     return (
         <div className={`${!alert.display ? "hidden" : " flex flex-row"} absolute right-0 mt-10 mx-5 rounded-md p-4 text-sm text-[#004434] bg-[#C4F9E2]`} role="alert">

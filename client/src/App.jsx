@@ -1,10 +1,10 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Signup from './pages/Signup'
-import Signin from './pages/Signin'
-import Send from './pages/Send'
-import { RecoilRoot } from 'recoil'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Signup from './pages/Signup';
+import Signin from './pages/Signin';
+import Send from './pages/Send';
+import { RecoilRoot } from 'recoil';
 
 export default function App() {
   return (
