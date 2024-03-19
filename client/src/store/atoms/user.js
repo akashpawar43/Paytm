@@ -29,8 +29,6 @@ export const userDetailsSelector = selector({
     key: "userDetailsSelector",
     get: async ({ get }) => {
         const user = get(usersDetailsAtom);
-        // await new Promise(r => setTimeout(r, 5000));
-        
         const res = await axios.get(`http://localhost:4000/api/v1/user/bulk?filter=${user}`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")

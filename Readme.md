@@ -49,6 +49,12 @@ npm install
 npm run dev
 ```
 
+<p>8. Open any browser and enter or copy this url and paste it in</p>
+
+```
+http://localhost:5173/dashboard
+```
+
   
   
 <h2>💻 Built with</h2>

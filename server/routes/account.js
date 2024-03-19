@@ -7,52 +7,64 @@ const router = express.Router();
 
 // get balance route for getting user balance http://localhost:4000/api/v1/account/balance
 router.get("/balance", authMiddleware, async (req, res) => {
-    const account = await Account.findOne({
-        userId: req.userId
-    })
-    const user = await User.findOne({ _id: req.userId }).select(['-password'])
-    // console.log(user);
-    res.json({
-        balance: account.balance,
-        user: user
-    })
+    try {
+        const account = await Account.findOne({
+            userId: req.userId
+        })
+        const user = await User.findOne({ _id: req.userId }).select(['-password'])
+        // console.log(user);
+        res.json({
+            balance: account.balance,
+            user: user
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error!"
+        });
+    }
 })
 
 // get balance route for getting user balance http://localhost:4000/api/v1/account/transfer
 router.post("/transfer", authMiddleware, async (req, res) => {
-    const session = await mongoose.startSession();
+    try {
+        const session = await mongoose.startSession();
 
-    session.startTransaction();
-    const { amount, to } = req.body;
+        session.startTransaction();
+        const { amount, to } = req.body;
 
-    // fetch the accounts within the transaction
-    const account = await Account.findOne({ userId: req.userId }).session(session);
+        // fetch the accounts within the transaction
+        const account = await Account.findOne({ userId: req.userId }).session(session);
 
-    if (!account || account.balance < amount) {
-        await session.abortTransaction();
-        return res.status(400).json({
-            message: "Insufficient balance"
+        if (!account || account.balance < amount) {
+            await session.abortTransaction();
+            return res.status(400).json({
+                message: "Insufficient balance"
+            });
+        }
+
+        const toAccount = await Account.findOne({ userId: to }).session(session);
+
+        if (!toAccount) {
+            await session.abortTransaction();
+            return res.status(400).json({
+                message: "Invalid account"
+            });
+        }
+
+        // perform transfer  ($inc accept position and negative values )
+        await Account.updateOne({ userId: req.userId }, { $inc: { balance: -amount } }).session(session);
+        await Account.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
+
+        // commit transaction
+        await session.commitTransaction();
+        res.json({
+            message: "Transfer successful"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error!"
         });
     }
-
-    const toAccount = await Account.findOne({ userId: to }).session(session);
-
-    if (!toAccount) {
-        await session.abortTransaction();
-        return res.status(400).json({
-            message: "Invalid account"
-        });
-    }
-
-    // perform transfer  ($inc accept position and negative values )
-    await Account.updateOne({ userId: req.userId }, { $inc: { balance: -amount } }).session(session);
-    await Account.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
-
-    // commit transaction
-    await session.commitTransaction();
-    res.json({
-        message: "Transfer successful"
-    });
 })
 
 

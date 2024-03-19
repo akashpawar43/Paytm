@@ -1,33 +1,16 @@
 import InputBox from '../components/InputBox';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
-import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
-import { alertAtom, amountAtom } from '../store/atoms/user';
+import { useSearchParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { amountAtom } from '../store/atoms/user';
 import Alert from '../components/Alert';
+import useTransfer from '../hooks/Transfer';
 
 export default function Send() {
     const [amount, setAmount] = useRecoilState(amountAtom);
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
     const name = searchParams.get("name");
-    const navigate = useNavigate();
-    const setAlert = useSetRecoilState(alertAtom);
-
-    const handleTransfer = useRecoilCallback(({ set }) => async () => {
-        const response = await axios.post("http://localhost:4000/api/v1/account/transfer", {
-            amount,
-            to: id
-        }, {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("token")
-            }
-        })
-        console.log(response.data.message);
-        setAlert({ display: true, color: "green", message: response.data.message })
-        setTimeout(() => {
-            setAlert({ display: false, message: '', color: "" });
-        }, 10000);
-    });
+    const handleTransfer = useTransfer({amount, id})
     return (
         <>
             <Alert />
