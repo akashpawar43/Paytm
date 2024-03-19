@@ -72,7 +72,7 @@ router.post("/signin", async (req, res) => {
         const { success } = singinBody.safeParse(req.body);
         if (!success) {
             return res.status(411).json({
-                message: "Error while logging in"
+                message: "Enter valid Inputs."
             });
         }
         const { username, password } = req.body;
@@ -91,6 +91,7 @@ router.post("/signin", async (req, res) => {
         const userId = user._id;
         const token = jwt.sign({ userId }, JWT_SECRTE);
         res.status(200).json({
+            message: "Login successfully",
             token: token
         });
     } catch (error) {

@@ -16,11 +16,11 @@ export default function useTransfer({ amount, id }) {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
-            })
+            });
             console.log(response.data.message);
-            setAlert({ display: true, color: "green", message: response.data.message })
+            setAlert({ display: true, color: "green", message: response.data.message });
         } catch (error) {
-            setAlert({ display: true, color: "red", message: error.response.data.message })
+            setAlert({ display: true, color: "red", message: error.response.data.message });
         }
         setTimeout(() => {
             setAlert({ display: false, message: '', color: "" });

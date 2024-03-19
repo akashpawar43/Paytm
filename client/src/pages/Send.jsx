@@ -10,7 +10,7 @@ export default function Send() {
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
     const name = searchParams.get("name");
-    const handleTransfer = useTransfer({amount, id})
+    const handleTransfer = useTransfer({amount, id});
     return (
         <>
             <Alert />
