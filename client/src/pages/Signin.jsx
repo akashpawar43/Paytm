@@ -3,7 +3,6 @@ import InputBox from '../components/InputBox';
 import { useRecoilState } from 'recoil';
 import { signInAtom } from '../store/atoms/user';
 import { useAuth } from '../hooks/Auth';
-import Alert from '../components/Alert';
 
 export default function Signin() {
     const [data, setData] = useRecoilState(signInAtom);
@@ -13,7 +12,6 @@ export default function Signin() {
     const handleSignIn = useAuth("signin", { data });
     return (
         <>
-            <Alert />
             <div className=' min-h-screen w-full bg-zinc-900 flex items-center'>
                 <section className=' mx-auto text-white flex justify-center items-center py-10 px-6 sm:px-8 md:px-10 bg-zinc-800 rounded-lg'>
                     <div className=' flex items-center flex-col'>
