@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector, selectorFamily } from "recoil";
+import { atom, selector } from "recoil";
 import axios from 'axios';
 
 // get balance and user details 
@@ -38,6 +38,52 @@ export const userDetailsSelector = selector({
     }
 });
 
+// storing amount money user want to send
+export const amountAtom = atom({
+    key: "amountAtom",
+    default: ""
+});
+
+// SignIn state to store username, password 
+export const signInAtom = atom({
+    key: "signInAtom",
+    default: {
+        username: "",
+        password: ""
+    }
+})
+
+// signUp state to store firstname, lastname, username, password 
+export const signUpAtom = atom({
+    key: "signUpAtom",
+    default: {
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+    }
+})
+
+// alert state
+export const alertAtom = atom({
+    key: "alertAtom",
+    default: {
+        display: false,
+        message: "",
+        color: ""
+    }
+});
+
+
+// export const signInSelector = selector({
+//     key: "signInSelector",
+//     get: ({ get }) => {
+//         const username = get(usernameAtom);
+//         const password = get(passwordAtom);
+//         return { username, password };
+//     }
+// })
+
 // tried some debouncing logic but didn't work
 // const debounc = (func, dalay) => {
 //     let timeout;
@@ -57,58 +103,6 @@ export const userDetailsSelector = selector({
 //     }
 // });
 
-export const firstNameAtom = atom({
-    key: "firstNameAtom",
-    default: ""
-});
-
-export const lastNameAtom = atom({
-    key: "lastNameAtom",
-    default: ""
-});
-
-export const usernameAtom = atom({
-    key: "usernameAtom",
-    default: ""
-});
-
-export const passwordAtom = atom({
-    key: "passwordAtom",
-    default: ""
-});
-
-export const amountAtom = atom({
-    key: "amountAtom",
-    default: ""
-});
-
-export const signInSelector = selector({
-    key: "signInSelector",
-    get: ({ get }) => {
-        const username = get(usernameAtom);
-        const password = get(passwordAtom);
-        return { username, password };
-    }
-})
-
-export const signUpSelector = selector({
-    key: "signUpSelector",
-    get: ({ get }) => {
-        const username = get(usernameAtom);
-        const password = get(passwordAtom);
-        const firstName = get(firstNameAtom);
-        const lastName = get(lastNameAtom);
-        return { username, password, firstName, lastName };
-    }
-})
 
 
-export const alertAtom = atom({
-    key: "alertAtom",
-    default: {
-        display: false,
-        message: "",
-        color: ""
-    }
-})
 

@@ -19,7 +19,7 @@ export function useAuth(route, { data }) {
         }
         setTimeout(() => {
             setAlert({ display: false, message: '', color: "" });
-        }, 5000);
+        }, 3000);
     });
 
     return handleAuth;

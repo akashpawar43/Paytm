@@ -79,24 +79,24 @@ router.post("/signin", async (req, res) => {
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(411).json({
-                message: "Error while logging in"
+                message: "Error while logging in!"
             });
         }
         const checkPassword = await bcrypt.compare(password, user.password);
         if (!checkPassword) {
             return res.status(411).json({
-                message: "Error while logging in"
+                message: "Error while logging in!"
             });
         }
         const userId = user._id;
         const token = jwt.sign({ userId }, JWT_SECRTE);
         res.status(200).json({
-            message: "Login successfully",
+            message: "Login successfully.",
             token: token
         });
     } catch (error) {
         res.status(500).json({
-            message: "Internal server error"
+            message: "Internal server error!"
         });
     }
 })

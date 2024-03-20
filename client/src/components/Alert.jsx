@@ -31,7 +31,7 @@ export default function Alert() {
                             clipRule="evenodd"></path>
                     </svg>}
             </span>
-            {alert.message}.
+            {alert.message}
         </div>
     )
 }

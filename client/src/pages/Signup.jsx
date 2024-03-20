@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import InputBox from '../components/InputBox';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { firstNameAtom, lastNameAtom, passwordAtom, signUpSelector, usernameAtom } from '../store/atoms/user';
+import { useRecoilState } from 'recoil';
+import { signUpAtom } from '../store/atoms/user';
 import { useAuth } from '../hooks/Auth';
 import Alert from '../components/Alert';
 
 export default function () {
-    const setFirstName = useSetRecoilState(firstNameAtom);
-    const setLastName = useSetRecoilState(lastNameAtom);
-    const setUserName = useSetRecoilState(usernameAtom);
-    const setPassword = useSetRecoilState(passwordAtom);
-    const data = useRecoilValue(signUpSelector);
+    const [data, setData] = useRecoilState(signUpAtom);
+    const handleData = (e) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
+    console.log({ data });
     const handleSignUp = useAuth("signup", { data });
     return (
         <>
@@ -21,10 +21,10 @@ export default function () {
                         <span className=' font-semibold text-3xl pb-3'>Sign Up</span>
                         <p className=' text-slate-300'>Enter Your Information to create an account</p>
                         <div className=' flex flex-col w-full gap-2 py-5'>
-                            <InputBox onChange={(e) => setFirstName(e.target.value)} placeholder='John' label="First Name" />
-                            <InputBox onChange={(e) => setLastName(e.target.value)} placeholder='Doe' label="last Name" />
-                            <InputBox onChange={(e) => setUserName(e.target.value)} placeholder='johndoe@gmail.com' label="Email" />
-                            <InputBox onChange={(e) => setPassword(e.target.value)} placeholder='' label="Password" />
+                            <InputBox onChange={handleData} value={data.firstName} placeholder='John' label="First Name" name="firstName" />
+                            <InputBox onChange={handleData} value={data.lastName} placeholder='Doe' label="last Name" name="lastName" />
+                            <InputBox onChange={handleData} value={data.username} placeholder='johndoe@gmail.com' label="Email" name="username" />
+                            <InputBox onChange={handleData} value={data.password} placeholder='' label="Password" name="password" />
                             <button onClick={handleSignUp} className=' w-full rounded-md bg-indigo-600 hover:bg-indigo-500 mt-2.5 px-2 py-1.5' >Sign Up</button>
                         </div>
                         <p>

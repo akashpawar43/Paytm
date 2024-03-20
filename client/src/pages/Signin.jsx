@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom'
 import InputBox from '../components/InputBox';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { passwordAtom, signInSelector, usernameAtom } from '../store/atoms/user';
+import { useRecoilState } from 'recoil';
+import { signInAtom } from '../store/atoms/user';
 import { useAuth } from '../hooks/Auth';
 import Alert from '../components/Alert';
 
 export default function Signin() {
-    const setUserName = useSetRecoilState(usernameAtom);
-    const setPassword = useSetRecoilState(passwordAtom);
-    const data = useRecoilValue(signInSelector);
+    const [data, setData] = useRecoilState(signInAtom);
+    const handleData = (e) => {
+        setData({...data, [e.target.name]: e.target.value });
+    };
     const handleSignIn = useAuth("signin", { data });
     return (
         <>
@@ -19,8 +20,8 @@ export default function Signin() {
                         <span className=' font-semibold text-3xl pb-3'>Sign In</span>
                         <span className=' text-slate-300'>Enter Your credentials to access your account</span>
                         <div className=' flex flex-col w-full gap-1.5 py-5'>
-                            <InputBox onChange={(e) => setUserName(e.target.value)} placeholder='johndoe@gmail.com' label="Email" />
-                            <InputBox onChange={(e) => setPassword(e.target.value)} placeholder='' label="Password" />
+                            <InputBox onChange={handleData} value={data.username} placeholder='johndoe@gmail.com' label="Email" name="username" />
+                            <InputBox onChange={handleData} value={data.password} placeholder='' label="Password" name="password" />
                             <button onClick={handleSignIn} className=' w-full rounded-md bg-indigo-600 hover:bg-indigo-500 mt-2.5 px-2 py-1.5' >Sign In</button>
                         </div>
                         <p>
