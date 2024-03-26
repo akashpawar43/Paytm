@@ -69,3 +69,26 @@ Technologies used in the project:
 *   Express.JS
 *   Tailwind CSS
 *   JavaScript
+
+
+<h2>Project Screenshots:</h2>
+
+1. Dashboard with user balance and filter users using name
+
+<img src="https://github.com/akashpawar43/Paytm/blob/master/client/src/assets/paytm1.png" alt="project-screenshot" >
+
+2. Transaction Page
+
+<img src="https://github.com/akashpawar43/Paytm/blob/master/client/src/assets/paytm2.png" alt="project-screenshot" >
+
+3. Transaction history Page
+
+<img src="https://github.com/akashpawar43/Paytm/blob/master/client/src/assets/paytm3.png" alt="project-screenshot" >
+
+4. SignIn Page
+
+<img src="https://github.com/akashpawar43/Paytm/blob/master/client/src/assets/paytm4.png" alt="project-screenshot" >
+
+5. SignUp Page
+
+<img src="https://github.com/akashpawar43/Paytm/blob/master/client/src/assets/paytm5.png" alt="project-screenshot" >
