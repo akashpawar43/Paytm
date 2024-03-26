@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { balanceAtom } from '../store/atoms/user'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Navbar() {
     const { user } = useRecoilValue(balanceAtom);
@@ -10,9 +10,16 @@ export default function Navbar() {
         <nav className=' w-full bg-zinc-950 border-b-2 border-zinc-800'>
             <div className=' container mx-auto bg-transparent p-3 flex flex-row justify-between items-center text-white'>
                 <div>
-                    <span className=' text-xl font-bold'>Payments App</span>
+                    <Link to="/dashboard">
+                        <span className=' text-xl font-bold'>Payments App</span>
+                    </Link>
                 </div>
                 <div className=' flex flex-row gap-2 items-center'>
+                    <button onClick={() => {
+                        navigate("history")
+                    }} className=' hover:bg-zinc-700 rounded-md px-3 py-1'>
+                        History
+                    </button>
                     <button onClick={() => {
                         localStorage.removeItem("token");
                         navigate("/signin")

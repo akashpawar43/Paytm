@@ -1,12 +1,14 @@
 import { useRecoilValue } from 'recoil'
 import { userDetailsSelector } from '../store/atoms/user'
 import { useNavigate } from 'react-router-dom';
+import Filter from './Filter';
 
 export default function Users() {
     const users = useRecoilValue(userDetailsSelector);
     const navigate = useNavigate();
     return (
         <>
+            <Filter />
             {users.map((user) => (
                 <div key={user._id} className=' w-full py-5'>
                     <div className=' w-full lg:max-w-7xl mx-auto px-4 md:px-0 text-white flex flex-row justify-between gap-3'>

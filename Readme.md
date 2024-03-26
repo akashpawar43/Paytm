@@ -13,6 +13,7 @@ Here're some of the project's best features:
 *   Log Out
 *   Dashboard
 *   Get Users
+*   Transaction History
 *   Filter Users
 *   Get Balance 
 *   Send Money

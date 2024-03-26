@@ -3,6 +3,7 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 const { Account } = require("../models/Account");
 const { default: mongoose } = require("mongoose");
 const { User } = require("../models/User");
+const History = require("../models/History");
 const router = express.Router();
 
 // get balance route for getting user balance http://localhost:4000/api/v1/account/balance
@@ -38,6 +39,14 @@ router.post("/transfer", authMiddleware, async (req, res) => {
                 message: "Enter valid amount"
             });
         }
+        const send = await User.findOne({ _id: req.userId }).session(session);
+        const recive = await User.findOne({ _id: to }).session(session);
+        if (!send && !recive) {
+            await session.abortTransaction();
+            return res.status(400).json({
+                message: "Account doesn't exist!"
+            });
+        }
         // fetch the accounts within the transaction
         const account = await Account.findOne({ userId: req.userId }).session(session);
 
@@ -61,10 +70,45 @@ router.post("/transfer", authMiddleware, async (req, res) => {
         await Account.updateOne({ userId: req.userId }, { $inc: { balance: -amount } }).session(session);
         await Account.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
 
+        await History.create({
+            sendId: send._id,
+            receiverId: recive._id,
+            senderFirstName: send.firstName,
+            senderLastName: send.lastName,
+            receiverFirstName: recive.firstName,
+            receiverLastName: recive.lastName,
+            amount
+        })
+
         // commit transaction
         await session.commitTransaction();
         res.json({
             message: "Transfer successful"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error!"
+        });
+    }
+})
+
+router.get("/history", authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.userId })
+        const response = await History.find({
+            $or: [{
+                senderFirstName: {
+                    "$regex": user.firstName,
+                }
+            }, {
+                receiverFirstName: {
+                    "$regex": user.firstName,
+                }
+            }]
+        });
+        res.json({
+            user: user.firstName,
+            history: response
         });
     } catch (error) {
         return res.status(500).json({

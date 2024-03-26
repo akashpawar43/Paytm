@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { amountAtom } from '../store/atoms/user';
 import useTransfer from '../hooks/Transfer';
-import { useEffect } from 'react';
 
 export default function Send() {
     const [amount, setAmount] = useRecoilState(amountAtom);
