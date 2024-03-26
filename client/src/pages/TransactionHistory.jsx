@@ -21,7 +21,7 @@ export default function TransactionHistory() {
         <div className=' w-full py-5'>
             <div className=' w-full lg:max-w-7xl mx-auto px-4 md:px-0 text-white flex flex-col justify-between gap-3'>
                 <p className=' text-2xl font-bold'>Transaction History</p>
-                <div className=' grid grid-cols-12 gap-4 p-4 rounded-md bg-zinc-600 w-full text-white'>
+                <div className=' grid grid-cols-12 gap-4 p-4 rounded-md bg-zinc-700 w-full text-white'>
                     <div className=' col-span-1'>No.</div>
                     <div className=' col-span-4'>Sender</div>
                     <div className=' col-span-4'>Reciever</div>

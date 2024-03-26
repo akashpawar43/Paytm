@@ -28,29 +28,37 @@ Here're some of the project's best features:
 npm install
 ```
 
-<p>3. Start Server</p>
+<p>3. create .env file same as .env.sample insert YOUR JWT secret and Mongodb URL</p>
+
+```
+PORT = 4000
+JWT_SECRTE = YOUR_JWT_SECRTE
+MONGO_URL = YOUR_MONGO_URL 
+```
+
+<p>4. Start Server</p>
 
 ```
 npm start
 ```
 
-<p>4. Open Separate terminal for Client</p>
+<p>5. Open Separate terminal for Client</p>
 
-<p>5. cd Client</p>
+<p>6. cd Client</p>
 
-<p>6. Install dependencies for Client</p>
+<p>7. Install dependencies for Client</p>
 
 ```
 npm install
 ```
 
-<p>7. Run Client</p>
+<p>8. Run Client</p>
 
 ```
 npm run dev
 ```
 
-<p>8. Open any browser and enter or copy this url and paste it in</p>
+<p>9. Open any browser and enter or copy this url and paste it in</p>
 
 ```
 http://localhost:5173/dashboard
