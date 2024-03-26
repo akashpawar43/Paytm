@@ -87,7 +87,7 @@ Technologies used in the project:
 
 2. Transaction Page
 
-<img src="https://github.com/akashpawar43/Paytm/blob/master/client/src/assets/paytm2.png" alt="project-screenshot" >
+<img src="https://github.com/akashpawar43/Paytm/blob/master/client/src/assets/paytm6.png" alt="project-screenshot" >
 
 3. Transaction history Page
 
