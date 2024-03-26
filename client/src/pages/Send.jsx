@@ -13,7 +13,7 @@ export default function Send() {
     const handleTransfer = useTransfer({ amount, id });
     return (
         <>
-            <div className=' absolute text-white p-5 text-2xl'>
+            <div className=' absolute text-white p-1.5 m-4 rounded-md text-2xl hover:bg-zinc-800'>
                 <Link to="/dashboard">
                     <IoArrowBack />
                 </Link>
