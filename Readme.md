@@ -28,7 +28,7 @@ Here're some of the project's best features:
 npm install
 ```
 
-<p>3. create .env file same as .env.sample insert YOUR JWT secret and Mongodb URL</p>
+<p>3. create .env file same as .env.sample insert your JWT secret and Mongodb URL</p>
 
 ```
 PORT = 4000
