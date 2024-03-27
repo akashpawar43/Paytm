@@ -70,7 +70,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
         await Account.updateOne({ userId: req.userId }, { $inc: { balance: -amount } }).session(session);
         await Account.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
 
-        await History.create({
+        await History.create([{
             sendId: send._id,
             receiverId: recive._id,
             senderFirstName: send.firstName,
@@ -78,7 +78,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
             receiverFirstName: recive.firstName,
             receiverLastName: recive.lastName,
             amount
-        })
+        }], session);
 
         // commit transaction
         await session.commitTransaction();
